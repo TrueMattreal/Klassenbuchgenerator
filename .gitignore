@@ -1,0 +1,6 @@
+apis/*
+creds/*
+/Klassenbuchgenerator/Klassenbuchgenerator/bin/Debug
+/Klassenbuchgenerator/Klassenbuchgenerator/obj/Debug
+/Klassenbuchgenerator/.vs/Klassenbuchgenerator/v15
+/Klassenbuchgenerator/packages
