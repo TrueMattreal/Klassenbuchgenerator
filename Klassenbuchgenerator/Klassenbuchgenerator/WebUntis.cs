@@ -1,5 +1,6 @@
 ﻿using Klassenbuchgenerator.Models;
 using Klassenbuchgenerator.Requests;
+using Klassenbuchgenerator.Responses;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace Klassenbuchgenerator
     class WebUntis
     {
         private readonly WebUntisServiceUrl serviceUrl;
+        private readonly WebUntisRequestFactory factory;
 
-        public WebUntis(WebUntisServiceUrl serviceUrl)
+        public WebUntis(WebUntisServiceUrl serviceUrl, WebUntisRequestFactory factory)
         {
             this.serviceUrl = serviceUrl;
+            this.factory = factory;
         }
 
         public void Authenticate(AuthenticationParams authenticationParams)
@@ -25,13 +28,26 @@ namespace Klassenbuchgenerator
             {
                 throw new ArgumentNullException(nameof(authenticationParams));
             }
-            new Requests.WebUntisRequest<Requests.AuthenticationParams>()
+            var response = factory
+                .GetRequest(authenticationParams)
+                .Send<AuthenticationResult>(serviceUrl);
+            factory.SessionId = response.Result.SessionId;
+        }
+        public void Logout(LogoutParams logoutParams)
+        {
+            var response = factory
+                .GetRequest(logoutParams)
+                .Send<LogoutParams>(serviceUrl);
+        }
+        public void GetTimeTable(GetTimetableParams getTimetableParams)
+        {
+            var response = factory
+                .GetRequest(getTimetableParams)
+                .Send<PeriodObject[]>(serviceUrl);
+            foreach (var periodObject in response.Result)
             {
-                Id = "rolfcopter",
-                JsonRpc = "2.0",
-                Method = "Authenticate",
-                Params = authenticationParams,
-            }.Send(serviceUrl);
+                Console.WriteLine(periodObject);
+            }
         }
     }
 }

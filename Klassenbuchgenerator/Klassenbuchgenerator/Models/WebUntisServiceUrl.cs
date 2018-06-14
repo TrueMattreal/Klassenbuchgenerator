@@ -12,7 +12,7 @@ namespace Klassenbuchgenerator.Models
         public string School { get; set; }
         public override string ToString()
         {
-            return string.Format("https://{0}/WebUntis/jsonrpc.do?school={1}", Server, School);
+            return $"https://{Server}.webuntis.com/WebUntis/jsonrpc.do?school={School}";
         }
     }
 }

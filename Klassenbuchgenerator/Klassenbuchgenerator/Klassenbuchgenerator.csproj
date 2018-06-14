@@ -52,12 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\PeriodObject.cs" />
     <Compile Include="Models\WebUntisServiceUrl.cs" />
     <Compile Include="Models\WebUntisCredentials.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\AuthenticationParams.cs" />
     <Compile Include="Requests\LogoutParams.cs" />
+    <Compile Include="Requests\GetTimetableParams.cs" />
+    <Compile Include="Requests\Params.cs" />
+    <Compile Include="Requests\WebUntisRequestFactory.cs" />
+    <Compile Include="Responses\GetTimetableResult.cs" />
     <Compile Include="Types\PersonType.cs" />
     <Compile Include="Responses\WebUntisResponse.cs" />
     <Compile Include="Responses\AuthenticationResult.cs" />

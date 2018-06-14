@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 
 namespace Klassenbuchgenerator.Requests
 {
-    class AuthenticationParams
+    class AuthenticationParams : Params
     {
+        private const string method = "authenticate";
+
+        public AuthenticationParams() : base(method) { }
+
         [JsonProperty("user")]
         public string User { get; set; }
         [JsonProperty("password")]

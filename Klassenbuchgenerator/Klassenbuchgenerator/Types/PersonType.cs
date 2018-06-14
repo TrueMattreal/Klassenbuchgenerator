@@ -8,7 +8,10 @@ namespace Klassenbuchgenerator.Types
 {
     enum PersonType
     {
+        Klassen = 1,
         Teacher = 2,
+        Subject = 3,
+        Room = 4,
         Student = 5,
     }
 }

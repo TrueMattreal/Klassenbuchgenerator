@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Klassenbuchgenerator.Requests
 {
-    class LogoutParams
+    class LogoutParams : Params
     {
+        public LogoutParams() : base("logout") { }
     }
 }

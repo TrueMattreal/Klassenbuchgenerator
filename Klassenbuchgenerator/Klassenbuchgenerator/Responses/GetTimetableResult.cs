@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Klassenbuchgenerator.Responses
 {
-    class WebUntisResponse<T>
+    class GetTimetableResult
     {
-        public string JsonRpc { get; set; }
-        public string Id { get; set; }
-        public T Result { get; set; }
+
     }
 }

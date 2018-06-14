@@ -1,4 +1,5 @@
 ﻿using Klassenbuchgenerator.Models;
+using Klassenbuchgenerator.Responses;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
@@ -19,8 +20,9 @@ namespace Klassenbuchgenerator.Requests
         public T Params { get; set; }
         [JsonProperty("jsonrpc")]
         public string JsonRpc { get; set; }
+        public string SessionId { get; set; }
 
-        public void Send(WebUntisServiceUrl serviceUrl)
+        public WebUntisResponse<TResponse> Send<TResponse>(WebUntisServiceUrl serviceUrl)
         {
             if (serviceUrl == null)
             {
@@ -30,10 +32,16 @@ namespace Klassenbuchgenerator.Requests
             var request = new RestRequest(RestSharp.Method.POST);
             request.AddHeader("user-agent", "foo");
             request.AddHeader("content-type", "application/json");
-            var x = JsonConvert.SerializeObject(this);
-            request.AddParameter("application/json", JsonConvert.SerializeObject(this));
+            var jsonSettings = new JsonSerializerSettings()
+            {
+                DateFormatString = "yyyyMMdd",
+            };
+            var x = JsonConvert.SerializeObject(this, jsonSettings);
+            request.AddParameter("application/json", x, ParameterType.RequestBody);
+            if (!string.IsNullOrEmpty(SessionId))
+                request.AddParameter("JSESSIONID", SessionId, ParameterType.Cookie);
             IRestResponse response = client.Execute(request);
-            
+            return JsonConvert.DeserializeObject<WebUntisResponse<TResponse>>(response.Content, jsonSettings);
         }
     }
 }
